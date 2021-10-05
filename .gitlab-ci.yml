@@ -1,0 +1,35 @@
+image: docker:latest
+services:
+  - docker:dind
+
+variables:
+  WAR_NAME: '${CI_PROJECT_NAME}.war'
+  APP_NAME: '${CI_PROJECT_NAME}'
+
+stages:
+  - build
+  - deploy
+
+maven-build:
+  image: maven:3-jdk-11
+  stage: build
+  script: "mvn package -DskipTests=true"
+  artifacts:
+    paths:
+      - target/*.war
+  only:
+  - master
+
+app-deploy:
+  image: ringcentral/sshpass
+  stage: deploy
+  script:
+  - sshpass -p $ISIN03_ACCESS scp -o StrictHostKeyChecking=no target/*.war webapp@isin03.dti.supsi.ch:/tomcat10-webapps/$WAR_NAME
+  environment:
+    name: staging
+    url: http://isin03.dti.supsi.ch:81/${CI_PROJECT_NAME}
+  only:
+  - master
+
+
+
