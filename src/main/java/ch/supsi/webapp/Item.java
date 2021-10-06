@@ -5,6 +5,8 @@ public class Item {
     private String description;
     private String author;
 
+    private String id;
+
     public Item(){}
 
     public Item(String title, String description, String author) {
@@ -35,5 +37,13 @@ public class Item {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
