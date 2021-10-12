@@ -3,33 +3,16 @@ services:
   - docker:dind
 
 variables:
-  WAR_NAME: '${CI_PROJECT_NAME}.war'
   APP_NAME: '${CI_PROJECT_NAME}'
 
-stages:
-  - build
-  - deploy
-
 maven-build:
-  image: maven:3-jdk-11
   stage: build
-  script: "mvn package -DskipTests=true"
-  artifacts:
-    paths:
-      - target/*.war
-  only:
-  - master
-
-app-deploy:
-  image: ringcentral/sshpass
-  stage: deploy
+  before_script:
+    - echo $'\r' >> ./src/main/resources/application.properties
+    - echo "server.servlet.context-path=/$APP_NAME" >> ./src/main/resources/application.properties
   script:
-  - sshpass -p $ISIN03_ACCESS scp -o StrictHostKeyChecking=no target/*.war webapp@isin03.dti.supsi.ch:/tomcat10-webapps/$WAR_NAME
-  environment:
-    name: staging
-    url: http://isin03.dti.supsi.ch:81/${CI_PROJECT_NAME}
+    - docker build -t gitlab-edu.supsi.ch:5050/dti-isin/giuliano.gremlich/applicazioni_web1_21_22/2021_2022/$APP_NAME .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab-edu.supsi.ch:5050
+    - docker push gitlab-edu.supsi.ch:5050/dti-isin/giuliano.gremlich/applicazioni_web1_21_22/2021_2022/$APP_NAME
   only:
   - master
-
-
-

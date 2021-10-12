@@ -1,13 +1,13 @@
-package ch.supsi.webapp;
+package ch.supsi.webapp.web;
 
 public class Item {
     private String title;
     private String description;
     private String author;
 
-    private String id;
+    private int id;
 
-    public Item(){}
+    public Item(){};
 
     public Item(String title, String description, String author) {
         this.title = title;
@@ -39,11 +39,11 @@ public class Item {
         this.author = author;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 }
