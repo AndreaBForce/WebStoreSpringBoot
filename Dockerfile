@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine as builder
+FROM openjdk:18-ea-11-jdk-alpine as builder
 # Install Maven
 RUN apk add --no-cache curl tar bash
 ARG MAVEN_VERSION=3.3.9
@@ -22,6 +22,6 @@ COPY src /usr/src/app/src
 RUN mvn -T 1C install -DskipTests=true
 
 
-FROM openjdk:8-jdk-alpine as runner
-COPY --from=builder /usr/src/app/target/*.war /app.war
-ENTRYPOINT ["java","-jar", "/app.war"]
+FROM openjdk:18-ea-11-jdk-alpine as runner
+COPY --from=builder /usr/src/app/target/*.jar /app.jar
+ENTRYPOINT ["java","-jar", "/app.jar"]

@@ -11,8 +11,8 @@ maven-build:
     - echo $'\r' >> ./src/main/resources/application.properties
     - echo "server.servlet.context-path=/$APP_NAME" >> ./src/main/resources/application.properties
   script:
-    - docker build -t gitlab-edu.supsi.ch:5050/dti-isin/giuliano.gremlich/applicazioni_web1_21_22/2021_2022/$APP_NAME .
+    - docker build -t gitlab-edu.supsi.ch:5050/dti-isin/giuliano.gremlich/applicazioni_web1_21_22/2021_2022/web-app-1-tp/$APP_NAME .
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab-edu.supsi.ch:5050
-    - docker push gitlab-edu.supsi.ch:5050/dti-isin/giuliano.gremlich/applicazioni_web1_21_22/2021_2022/$APP_NAME
+    - docker push gitlab-edu.supsi.ch:5050/dti-isin/giuliano.gremlich/applicazioni_web1_21_22/2021_2022/web-app-1-tp/$APP_NAME
   only:
   - master
