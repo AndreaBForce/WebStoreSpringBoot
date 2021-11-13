@@ -1,0 +1,89 @@
+/* Top logo bar*/
+.top_logo_name{
+    display: flex;
+    justify-content: space-between;
+
+    margin: auto;
+    background: blue;
+    color: white;
+    font-family: sans-serif;
+}
+
+/* Top nav-bar */
+.navigation {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+    text-align: center;
+    margin: 0;
+    background: deepskyblue;
+}
+
+.navigation a {
+    text-decoration: none;
+    display: block;
+    padding: 1em;
+    color: white;
+    font-family: system-ui;
+}
+
+.navigation a:hover {
+    background: #1565C0;
+}
+
+/* Sezione compro e vendo */
+
+.divisori_annunci{
+    display: flex;
+}
+.sez_annunci{
+    background-color: rgba(108, 89, 163, 0.82);
+    width: 30%;
+    color: #000000;
+    flex: 0 0 45%;
+}
+
+
+.sez_title{
+    background-color: #46e7c0;
+    align-items: center;
+    width: 30%;
+    height: 8%;
+    color: #000000;
+    flex: 0 0 50%;
+}
+
+.item_pari{
+    background-color: #eedd18;
+}
+
+.item_dispari{
+    background-color: #de7115;
+}
+
+/*ASIDE PERSONALIZATION*/
+.aside{
+    background-color: #98e552;
+}
+
+/* SEZIONI SOCI */
+.sezioniSotto{
+    display: flex;
+}
+
+.sezioneS{
+    background-color: #1565C0;
+    align-items: center;
+}
+
+
+/* CREA ITEM */
+.creation{
+    display: flex;
+    background-color: #eedd18;
+}
+
+.creation_box{
+    flex: 0 0 50%;
+}
