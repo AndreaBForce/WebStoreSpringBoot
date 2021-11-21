@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Annunci Riccardi</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/baseStyle.css}"/>
+</head>
+<body>
+<header>
+    <div class="top_logo_name">
+        <img th:src="@{/images/logo.jpg}" class="imagelogo" alt="Andrea Riccardi Logo">
+        <h1>Riccardi Annunci</h1>
+        <img th:src="@{/images/logo.jpg}" class="imagelogo" alt="Andrea Riccardi Logo">
+    </div>
+</header>
+
+<nav class="navigation">
+    <a th:href="@{/index.html}">Home</a>
+    <a th:href="@{/createItemForm.html}">Create Item</a>
+    <a th:href="@{/itemDetails.html}">ShowItem</a>
+    <a href="">About</a>
+</nav>
+
+<section class="divisori_annunci">
+    <section class="sez_annunci">
+        <hr>
+        <h3 class="sez_title">Annunci Vendita</h3>
+        <hr>
+
+        <article class="item_dispari" th:each="item : ${annunci} ">
+             <p>Id: </p><p th:text="${item.id}"></p><br>
+            <p>Titolo: </p><p th:text="${item.title}"></p><br>
+            <p>Autore: </p><p th:text="${item.author.getUsername()}"></p><br>
+            <p>Data Creazione: </p><p th:text="${item.date}"></p><br>
+            <p>Categoria: </p><p th:text="${item.category.category}"></p><br>
+            <p>Descrizione: </p><p th:text="${item.description}"></p><br>
+        </article>
+        <hr>
+    </section>
+
+    <section class="sez_annunci">
+        <hr>
+        <h3 class="sez_title">Annunci Compro</h3>
+        <hr>
+        <article class="item_pari" th:each="item : ${annunci} ">
+            <p>Id: </p><p th:text="${item.id}"></p><br>
+            <p>Titolo: </p><p th:text="${item.title}"></p><br>
+            <p>Autore: </p><p th:text="${item.author.getUsername()}"></p><br>
+            <p>Data Creazione: </p><p th:text="${item.date}"></p><br>
+            <p>Categoria: </p><p th:text="${item.category.category}"></p><br>
+            <p>Descrizione: </p><p th:text="${item.description}"></p><br>
+        </article>
+        <hr>
+    </section>
+
+    <aside class="aside">
+        <h1>NEWS</h1>
+        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias aperiam commodi consectetur, debitis
+            dolore eius eligendi itaque labore maiores molestias neque non pariatur quasi quisquam sit sunt tempora
+            vero! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci aliquam aut beatae
+            commodi dolorum eius, error excepturi expedita in laborum libero molestias natus officiis pariatur quam
+            ratione tempora tenetur.
+        </div>
+    </aside>
+
+</section>
+
+<section class="navigation">
+    <section>
+        <h3>Sezione 2</h3>
+    </section>
+
+    <section>
+        <h3>Sezione 3</h3>
+    </section>
+
+    <section>
+        <h3>Sezione 4</h3>
+    </section>
+</section>
+
+<hr>
+<footer>
+    <small> Copyleft CC-by 2021 by "Andrea Riccardi"</small>
+</footer>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Item Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/baseStyle.css}"/>
+</head>
+<body>
+<header>
+    <div class="top_logo_name">
+        <img th:src="@{/images/logo.jpg}" class="imagelogo" alt="Andrea Riccardi Logo">
+        <h1>Riccardi Annunci</h1>
+        <img th:src="@{/images/logo.jpg}" class="imagelogo" alt="Andrea Riccardi Logo">
+    </div>
+</header>
+
+<nav class="navigation">
+    <a th:href="@{/index.html}">Home</a>
+    <a th:href="@{/createItemForm.html}">Create Item</a>
+    <a th:href="@{/itemDetails.html}">ShowItem</a>
+    <a href="">About</a>
+</nav>
+
+<section class="creation">
+    <hr>
+    <h3>Mostra dettagli item</h3>
+    <form>
+        <label for="fid">Item id:</label><br>
+        <input type="text" id="fid" name="fid" th:value="${oggetto?.id}"><br><br>
+        <input type="submit" value="Cerca">
+    </form>
+    <hr>
+
+</section>
+
+<section class="creation">
+    <form class="creation_box">
+        <h3>Mostra:</h3>
+        <label for="ftitolo">Titolo:</label><br>
+        <input type="text" id="ftitolo" name="fid" th:value="${oggetto?.title}" readonly><br><br>
+
+        <label for="fauto">Autore:</label><br>
+        <input type="text" id="fauto" name="fid" th:value="${oggetto?.author?.getUsername()}" readonly><br><br>
+
+        <label for="fdata">Data:</label><br>
+        <input type="text" id="fdata" name="fid" th:value="${oggetto?.date}" readonly><br><br>
+
+        <label for="fdescr">Descrizione:</label><br>
+        <input type="text" id="fdescr" name="fid" th:value="${oggetto?.description}" readonly><br><br>
+
+        <label for="fcat">Categoria:</label><br>
+        <input type="text" id="fcat" name="fid" th:value="${oggetto?.category}" readonly><br><br>
+    </form>
+</section>
+
+<hr>
+<footer>Copyleft CC-by 2021 by "Andrea Riccardi"</footer>
+</body>
+</html>

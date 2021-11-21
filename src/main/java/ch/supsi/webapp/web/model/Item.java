@@ -2,6 +2,8 @@ package ch.supsi.webapp.web.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +23,11 @@ public class Item {
     @JoinColumn(name = "category")
     private Category category;
 
+    private Date date;
+
+    private String annuncio;
+
+
     @Id
     @GeneratedValue
     private int id;
@@ -33,6 +40,32 @@ public class Item {
         this.description = description;
         this.author = author;
         this.category = category;
+    }
+
+    public Item(String title, String description, User author, Category category, Date date, String annuncio, int id) {
+        this.title = title;
+        this.description = description;
+        this.author = author;
+        this.category = category;
+        this.date = date;
+        this.annuncio = annuncio;
+        this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getAnnuncio() {
+        return annuncio;
+    }
+
+    public void setAnnuncio(String annuncio) {
+        this.annuncio = annuncio;
     }
 
     public String getTitle() {

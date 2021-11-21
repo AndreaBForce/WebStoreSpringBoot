@@ -9,6 +9,10 @@
     font-family: sans-serif;
 }
 
+.imagelogo{
+    width: 241px;
+    height: 90px;
+}
 /* Top nav-bar */
 .navigation {
     display: flex;
