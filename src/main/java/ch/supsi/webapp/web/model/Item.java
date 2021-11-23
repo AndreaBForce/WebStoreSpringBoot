@@ -27,6 +27,8 @@ public class Item {
 
     private String annuncio;
 
+    @Lob
+    private byte[] image;
 
     @Id
     @GeneratedValue
@@ -50,6 +52,17 @@ public class Item {
         this.date = date;
         this.annuncio = annuncio;
         this.id = id;
+    }
+
+    public Item(String title, String description, User author, Category category, Date date, String annuncio, int id,byte[] image) {
+        this.title = title;
+        this.description = description;
+        this.author = author;
+        this.category = category;
+        this.date = date;
+        this.annuncio = annuncio;
+        this.id = id;
+        this.image = image;
     }
 
     public Date getDate() {
@@ -106,6 +119,14 @@ public class Item {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @Override

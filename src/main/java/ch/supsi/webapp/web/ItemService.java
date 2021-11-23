@@ -25,6 +25,10 @@ public class ItemService {
         return repository.findAll();
     }
 
+    public List<Item> getByAnnuncioType(String annuncio){
+        return repository.findAllByAnnuncioEquals(annuncio);
+    }
+
     //Richiesta get /id
     public Optional<Item> getItemById(int id){
         return repository.findById(id);

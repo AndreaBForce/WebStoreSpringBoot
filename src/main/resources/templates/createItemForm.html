@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Create Item Menu</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/baseStyle.css}"/>
+    <link th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -27,7 +28,7 @@
 <section class="creation">
     <hr>
     <h3 class="creation_box">Creazione item</h3>
-    <form class="creation_box" method="post">
+    <form class="creation_box" method="post" >
         <label for="fauthor">Autore:</label>
         <select name="author" id="fauthor">
             <option th:each="utente : ${utenti}" th:value="${utente.getUsername()}" th:text="${utente.getUsername()}"></option>
@@ -44,7 +45,7 @@
         <label for="tannuncio">Tipo annuncio:</label>
         <select name="annuncio" id="tannuncio">
             <option value="offerta">Offerta</option>
-            <option value="domanda">Domanda</option>
+            <option value="richiesta">Richiesta</option>
         </select><br><br>
 
         <label for="start">Data creazione:</label>

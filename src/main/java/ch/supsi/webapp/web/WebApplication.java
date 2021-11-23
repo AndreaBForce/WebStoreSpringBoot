@@ -40,10 +40,10 @@ public class WebApplication {
 
 			if(userRepository.count() == 0){
 				//TODO Rimpiazza con findbyname
-				userRepository.saveAndFlush(new User("AUTH_Antonio",roleRepository.findById(6).get()));
-				userRepository.saveAndFlush(new User("ADM_Max",roleRepository.findById(7).get()));
-				userRepository.saveAndFlush(new User("USR_Diego",roleRepository.findById(8).get()));
-				userRepository.saveAndFlush(new User("EDIT_Matteo",roleRepository.findById(9).get()));
+				userRepository.saveAndFlush(new User("Antonio",roleRepository.findById(6).get()));
+				userRepository.saveAndFlush(new User("Paky",roleRepository.findById(7).get()));
+				userRepository.saveAndFlush(new User("Diego",roleRepository.findById(8).get()));
+				userRepository.saveAndFlush(new User("Matteo",roleRepository.findById(9).get()));
 			}
 		};
 	}

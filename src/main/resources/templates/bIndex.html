@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Andrea Riccardi">
+    <title>Annunci Riccardi</title>
+    <link th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" rel="stylesheet">
+    <!---<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">--->
+
+</head>
+<body>
+
+<div class="container" th:fragment="headerCopia">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <img th:src="@{/images/logo.jpg}" alt="Andrea Riccardi Logo" height="60" width="60">
+            <h3>&nbsp;</h3>
+            <h3>Annunci Riccardi</h3>
+        </a>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a th:href="@{/bIndex.html}" class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a th:href="@{/bCreaItem.html}" class="nav-link px-2 link-dark">Crea Item</a></li>
+            <li><a th:href="@{/bItemDetails.html}" class="nav-link px-2 link-dark">Mostra Item</a></li>
+
+            <!---TODO ADD ABOUT PAGE-->
+            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+        </ul>
+
+        <!---TODO LOGIN BUTTONS PAGE-->
+        <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-outline-primary me-2">Login</button>
+            <button type="button" class="btn btn-primary">Sign-up</button>
+        </div>
+    </header>
+</div>
+
+<main>
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+                <h3>Richiesta</h3>
+                <hr>
+
+                <div class="container">
+                    <div class="row">
+                        <!-- Qua sotto metto thymeleaf e creo l'oggetto -->
+                        <!-- TODO MOSTRARE IMMAGINE CON THZYMESOCI -->
+                        <!-- TODO fare il bottone show -->
+                        <div class="col" th:each="item : ${richiesta}">
+                            <div class="card" style="width: 10rem;">
+                                <img th:src="@{/images/logo.jpg}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${item.title}"></h5>
+                                    <p class="card-text" th:text="${item.description}"></p>
+                                    <button type="button" th:href="@{/bItemDetails.html}" class="btn btn-outline-primary btn-sm">Show</button>
+
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h3>Offerta</h3>
+                <hr>
+                <!-- Qua sotto metto thymeleaf e creo l'oggetto -->
+                <!-- TODO MOSTRARE IMMAGINE CON THZYMESOCI -->
+                <!-- TODO fare il bottone show -->
+                <div class="col" th:each="item : ${offerta}">
+                    <div class="card" style="width: 10rem;">
+                        <img th:src="@{/images/logo.jpg}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${item.title}"></h5>
+                            <p class="card-text" th:text="${item.description}"></p>
+                            <button type="button" th:href="@{/bItemDetails.html}" class="btn btn-outline-primary btn-sm">Show</button>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+
+            </div>
+
+            <div class="col col-lg-2">
+                <aside class="aside">
+                    <h1>NEWS</h1>
+                    <div>Bacon ipsum dolor amet jerky t-bone jowl venison alcatra ball tip kevin landjaeger chislic.
+                        Beef ribs turkey ribeye picanha fatback tail tri-tip chicken. Shoulder strip steak picanha beef
+                        ribs, salami turducken jowl buffalo t-bone alcatra porchetta chislic. Swine ball tip pancetta
+                        turkey frankfurter. Tail pork meatloaf picanha beef, drumstick turducken kevin chuck pastrami
+                        hamburger tri-tip venison. Kielbasa kevin jerky tail chislic tri-tip beef ribs picanha alcatra
+                        t-bone filet mignon beef doner.
+
+                        Buffalo shank pork chop kielbasa, shoulder sirloin porchetta hamburger frankfurter sausage kevin
+                        capicola prosciutto shankle beef ribs. Shankle pastrami alcatra kevin t-bone tri-tip buffalo.
+                        Turkey t-bone sausage boudin tenderloin ham. Brisket chislic ground round alcatra, shank sirloin
+                        pancetta prosciutto chicken bacon meatball filet mignon. Beef swine ribeye frankfurter. Capicola
+                        bacon strip steak andouille cupim ball tip. Pork loin tongue alcatra short loin hamburger.
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <hr>
+</main>
+
+<footer class="footer" th:fragment="footerCopia">
+    <div class="container">
+        <span class="text-muted"><small> Copyleft CC-by 2021 by "Andrea Riccardi"</small></span>
+    </div>
+</footer>
+
+</body>
+</html>

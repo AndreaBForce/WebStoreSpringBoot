@@ -34,15 +34,18 @@ public class AnnController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getAll(Model model) {
         //TODO PRENDERE LA CATEGORIA E DIVIDERE IN OFFERTA E DOMANDA
-        model.addAttribute("annunci", itemService.getAllItems());
-        return "index";
+        model.addAttribute("richiesta", itemService.getByAnnuncioType("richiesta"));
+        model.addAttribute("offerta", itemService.getByAnnuncioType("offerta"));
+        return "bIndex";
     }
+
+
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
     public String getItem(Model model, @PathVariable int id) {
         Item item = itemService.getItemById(id).get();
         model.addAttribute("oggetto", item);
-        return "itemDetails";
+        return "bItemDetails";
     }
 
     @RequestMapping(value = "/item/new", method = RequestMethod.GET)
@@ -50,12 +53,12 @@ public class AnnController {
         model.addAttribute("utenti",userService.getAllUsers());
         model.addAttribute("categorie",categoryService.getAllCategory());
 
-        return "createItemForm";
+        return "bCreaItem";
     }
 
     @RequestMapping(value = "/item/new", method = RequestMethod.POST)
     public String postNew(Model model) {
-        return "redirect:/index";
+        return "redirect:/bIndex";
     }
 
     @RequestMapping(value = "/item/{id}/edit", method = RequestMethod.GET)
@@ -106,14 +109,13 @@ public class AnnController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/itemDetails.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/bItemDetails.html", method = RequestMethod.GET)
     public String itemsDetail(Model model) {
-        return "itemDetails";
+        return "bItemDetails";
     }
 
-    @RequestMapping(value = "/createItemForm.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/bCreaItem.html", method = RequestMethod.GET)
     public String createItem(Model model) {
-
         return getNew(model);
     }
 
@@ -140,12 +142,26 @@ public class AnnController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/index.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/bIndex.html", method = RequestMethod.GET)
     public String home(Model model) {
         return "redirect:/";
     }
 
+    /*
+    @GetMapping(value = "/item/image/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] showProductImage(@PathVariable int id){
+        Item item;
+        System.out.println("dio cane");
+        if(itemService.getItemById(id).isPresent()){
+            item = itemService.getItemById(id).get();
 
+            if(item.getImage().length != 0){
+                return item.getImage();
+            }
+        }
+        return null;
+    }*/
 
 
 }
