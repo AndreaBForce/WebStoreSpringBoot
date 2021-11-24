@@ -7,6 +7,7 @@ import ch.supsi.webapp.web.UserService;
 import ch.supsi.webapp.web.model.Item;
 import ch.supsi.webapp.web.model.Success;
 import ch.supsi.webapp.web.model.User;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,7 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,7 +49,13 @@ public class AnnController {
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
     public String getItem(Model model, @PathVariable int id) {
-        Item item = itemService.getItemById(id).get();
+        Item item;
+        if(itemService.getItemById(id).isPresent()){
+            item = itemService.getItemById(id).get();
+        }else{
+            item=null;
+        }
+
         model.addAttribute("oggetto", item);
         return "bItemDetails";
     }
@@ -61,6 +73,13 @@ public class AnnController {
         return "redirect:/bIndex";
     }
 
+    @RequestMapping(value = "/bEditItem.html", method = RequestMethod.GET)
+    public String getEditRed(Model model) {
+        model.addAttribute("utenti",userService.getAllUsers());
+        model.addAttribute("categorie",categoryService.getAllCategory());
+        return "bEditItem";
+    }
+
     @RequestMapping(value = "/item/{id}/edit", method = RequestMethod.GET)
     public String getEditItem(Model model, @PathVariable int id) {
         model.addAttribute("utenti",userService.getAllUsers());
@@ -72,8 +91,7 @@ public class AnnController {
         }else{
             return "redirect:/";
         }
-
-        return "editItemForm";
+        return "bEditItem";
     }
 
     @RequestMapping(value = "/item/{id}/edit", method = RequestMethod.POST)
@@ -91,9 +109,13 @@ public class AnnController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Item item = null;
+        if(itemService.getItemById(id).isPresent() && itemService.getItemById(id).get().getImage() != null){
+             item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,id,itemService.getItemById(id).get().getImage());
+        }else{
+             item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,id);
+        }
 
-        //Per come lo avevo fatto deleteva l'oggetto e poi lo rimetteva dentro con un altro id
-        Item item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,id);
         itemService.modifyById(id,item);
 
         return "redirect:/";
@@ -114,18 +136,31 @@ public class AnnController {
         return "bItemDetails";
     }
 
+    @RequestMapping(value = "/bItemDetails.html", method = RequestMethod.POST)
+    public String POSTitemsDetail(@RequestParam("id") int id,
+                                  Model model) {
+        return getItem(model, id);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String POSTIndexitemsDetail(@RequestParam("id") String id,
+                                  Model model) {
+        return getItem(model, Integer.valueOf(id));
+    }
+
     @RequestMapping(value = "/bCreaItem.html", method = RequestMethod.GET)
     public String createItem(Model model) {
         return getNew(model);
     }
 
-    @RequestMapping(value = "/createItemForm.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/bCreaItem.html", method = RequestMethod.POST)
     public String postItem(@RequestParam("author") String author,
                            @RequestParam("title") String title,
                            @RequestParam("category") String categoria,
                            @RequestParam("annuncio") String annuncio,
                            @RequestParam("date") String date,
                            @RequestParam("description") String description,
+                           @RequestParam("image") MultipartFile file,
                             Model model) {
         int ID = (int) itemService.getLen();
 
@@ -136,7 +171,19 @@ public class AnnController {
             e.printStackTrace();
         }
 
-        Item item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,ID);
+        Item item = null;
+
+        //TODO Refactor
+        if(!file.isEmpty()){
+            try {
+                item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,ID,file.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,ID);
+        }
+
         itemService.insertInDb(item);
 
         return "redirect:/";
@@ -147,21 +194,19 @@ public class AnnController {
         return "redirect:/";
     }
 
-    /*
+
     @GetMapping(value = "/item/image/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] showProductImage(@PathVariable int id){
         Item item;
-        System.out.println("dio cane");
         if(itemService.getItemById(id).isPresent()){
             item = itemService.getItemById(id).get();
 
-            if(item.getImage().length != 0){
+            if(item.getImage()!=null && item.getImage().length != 0){
                 return item.getImage();
             }
         }
         return null;
-    }*/
-
+    }
 
 }

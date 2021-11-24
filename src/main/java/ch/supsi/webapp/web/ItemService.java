@@ -37,9 +37,8 @@ public class ItemService {
     //Put socio
     public void modifyById(int id,Item letto){
         Item item = repository.getById(id);
-        //item.setAuthor(letto.getAuthor());
-        item.setDescription(letto.getDescription());
-        item.setTitle(letto.getTitle());
+
+        item = letto;
 
         repository.deleteById(id);
         repository.save(item);
