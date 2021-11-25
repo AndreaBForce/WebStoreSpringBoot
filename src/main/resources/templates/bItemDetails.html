@@ -60,6 +60,11 @@
         <input type="email" class="form-control" id="tipologia" th:value="${oggetto?.annuncio}" readonly>
     </div>
 
+    <div class="mb-3">
+        <label for="data" class="form-label">Data di creazione:</label>
+        <input type="email" class="form-control" id="data" th:value="${oggetto?.date?.toString()}" readonly>
+    </div>
+
 
 </div>
 
