@@ -1,30 +1,26 @@
 package ch.supsi.webapp.web.controller;
 
-import ch.supsi.webapp.web.CategoryService;
-import ch.supsi.webapp.web.ItemService;
-import ch.supsi.webapp.web.RoleService;
-import ch.supsi.webapp.web.UserService;
+import ch.supsi.webapp.web.service.CategoryService;
+import ch.supsi.webapp.web.service.ItemService;
+import ch.supsi.webapp.web.service.RoleService;
+import ch.supsi.webapp.web.service.UserService;
 import ch.supsi.webapp.web.model.Item;
-import ch.supsi.webapp.web.model.Success;
-import ch.supsi.webapp.web.model.User;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class AnnController {
@@ -45,7 +41,10 @@ public class AnnController {
         return "bIndex";
     }
 
-
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return "bLoginPage.html";
+    }
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
     public String getItem(Model model, @PathVariable int id) {
@@ -100,15 +99,9 @@ public class AnnController {
                                @RequestParam("title") String title,
                                @RequestParam("category") String categoria,
                                @RequestParam("annuncio") String annuncio,
-                               @RequestParam("date") String date,
                                @RequestParam("description") String description,
                                Model model) {
-        Date date1= null;
-        try {
-            date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date date1= new Date();
         Item item = null;
         if(itemService.getItemById(id).isPresent() && itemService.getItemById(id).get().getImage() != null){
              item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,id,itemService.getItemById(id).get().getImage());
@@ -148,29 +141,31 @@ public class AnnController {
         return getItem(model, Integer.valueOf(id));
     }
 
+    //TODO QUA
+    @RequestMapping(value = "/edita", method = RequestMethod.POST)
+    public String POSTeditItemDetails(@RequestParam("id") String id,
+                                       Model model) {
+        return getEditItem(model, Integer.valueOf(id));
+    }
+
     @RequestMapping(value = "/bCreaItem.html", method = RequestMethod.GET)
     public String createItem(Model model) {
         return getNew(model);
     }
+
+
 
     @RequestMapping(value = "/bCreaItem.html", method = RequestMethod.POST)
     public String postItem(@RequestParam("author") String author,
                            @RequestParam("title") String title,
                            @RequestParam("category") String categoria,
                            @RequestParam("annuncio") String annuncio,
-                           @RequestParam("date") String date,
                            @RequestParam("description") String description,
                            @RequestParam("image") MultipartFile file,
                             Model model) {
         int ID = (int) itemService.getLen();
 
-        Date date1= null;
-        try {
-            date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        Date date1= new Date();
         Item item = null;
 
         //TODO Refactor
@@ -207,6 +202,15 @@ public class AnnController {
             }
         }
         return null;
+    }
+
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/";
     }
 
 }

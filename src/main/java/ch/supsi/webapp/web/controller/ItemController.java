@@ -1,10 +1,10 @@
 package ch.supsi.webapp.web.controller;
 
 
-import ch.supsi.webapp.web.CategoryService;
-import ch.supsi.webapp.web.ItemService;
-import ch.supsi.webapp.web.RoleService;
-import ch.supsi.webapp.web.UserService;
+import ch.supsi.webapp.web.service.CategoryService;
+import ch.supsi.webapp.web.service.ItemService;
+import ch.supsi.webapp.web.service.RoleService;
+import ch.supsi.webapp.web.service.UserService;
 import ch.supsi.webapp.web.model.Item;
 import ch.supsi.webapp.web.model.Success;
 import org.springframework.beans.factory.annotation.Autowired;

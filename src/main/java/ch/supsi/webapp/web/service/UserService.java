@@ -1,4 +1,4 @@
-package ch.supsi.webapp.web;
+package ch.supsi.webapp.web.service;
 
 import ch.supsi.webapp.web.model.User;
 import ch.supsi.webapp.web.repository.UserRepository;
@@ -31,6 +31,10 @@ public class UserService {
             default:
                 return userRepository.getById(10);
         }
+    }
+
+    public User findUserByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 
     public User getById(int userId){

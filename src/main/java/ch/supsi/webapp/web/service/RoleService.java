@@ -1,4 +1,4 @@
-package ch.supsi.webapp.web;
+package ch.supsi.webapp.web.service;
 
 import ch.supsi.webapp.web.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;

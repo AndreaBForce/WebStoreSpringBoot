@@ -6,6 +6,10 @@ import javax.persistence.*;
 public class User {
     private String username;
 
+    private String nome;
+
+    private String cognome;
+
     @ManyToOne
     @JoinColumn(name = "user_role")
     private Role ruolo;
@@ -14,6 +18,7 @@ public class User {
     @GeneratedValue
     private int id;
 
+    private String password;
 
     public User() {
 
@@ -26,6 +31,20 @@ public class User {
     public User(String username, Role ruolo) {
         this.username = username;
         this.ruolo = ruolo;
+    }
+
+    public User(String username, Role ruolo, String password) {
+        this.username = username;
+        this.ruolo = ruolo;
+        this.password = password;
+    }
+
+    public User(String username, String nome, String cognome, Role ruolo, String password) {
+        this.username = username;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.ruolo = ruolo;
+        this.password = password;
     }
 
     public String getUsername() {
@@ -50,6 +69,30 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

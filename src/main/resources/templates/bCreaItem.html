@@ -22,7 +22,7 @@
             <label for="fauthor">Autore:</label>
             <br>
             <select name="author" id="fauthor" class="form-select" aria-label="Default select example" required>
-                <option th:each="utente : ${utenti}" th:value="${utente.getUsername()}" th:text="${utente.getUsername()}"></option>
+                <option th:value="${#authentication.name}" th:text="${#authentication.name}"></option>
             </select>
             <br>
 
@@ -49,12 +49,7 @@
                 </label>
             </div>
             </div>
-            <br>
-            <label for="start">Data creazione:</label>
-            <br>
-            <input type="date" id="start" name="date"
-                   value="2020-11-20"
-                   min="2018-01-01" max="2080-12-31">
+
 
             <br><br>
             <div class="mb-3">

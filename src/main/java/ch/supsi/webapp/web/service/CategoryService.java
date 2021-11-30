@@ -1,4 +1,4 @@
-package ch.supsi.webapp.web;
+package ch.supsi.webapp.web.service;
 
 import ch.supsi.webapp.web.model.Category;
 import ch.supsi.webapp.web.repository.CategoryRepository;

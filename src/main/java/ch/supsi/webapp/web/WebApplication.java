@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class WebApplication {
@@ -32,18 +33,19 @@ public class WebApplication {
 			}
 
 			if(roleRepository.count() == 0){
-				roleRepository.saveAndFlush(new Role("Author"));
-				roleRepository.saveAndFlush(new Role("Administrator"));
-				roleRepository.saveAndFlush(new Role("User"));
-				roleRepository.saveAndFlush(new Role("Editor"));
+				roleRepository.saveAndFlush(new Role("ROLE_AUTHOR"));
+				roleRepository.saveAndFlush(new Role("ROLE_ADMIN"));
+				roleRepository.saveAndFlush(new Role("ROLE_TONIO"));
+				roleRepository.saveAndFlush(new Role("ROLE_WATCHER"));
 			}
 
 			if(userRepository.count() == 0){
 				//TODO Rimpiazza con findbyname
-				userRepository.saveAndFlush(new User("Antonio",roleRepository.findById(6).get()));
-				userRepository.saveAndFlush(new User("Paky",roleRepository.findById(7).get()));
+				userRepository.saveAndFlush(new User("admin","andrea","riccardi",roleRepository.findById(7).get(),new BCryptPasswordEncoder().encode("admin")));
+				userRepository.saveAndFlush(new User("adm_diego","diego","moranda",roleRepository.findById(7).get(),new BCryptPasswordEncoder().encode("admin")));
+				/*userRepository.saveAndFlush(new User("Paky",roleRepository.findById(7).get()));
 				userRepository.saveAndFlush(new User("Diego",roleRepository.findById(8).get()));
-				userRepository.saveAndFlush(new User("Matteo",roleRepository.findById(9).get()));
+				userRepository.saveAndFlush(new User("Matteo",roleRepository.findById(9).get()));*/
 			}
 		};
 	}
