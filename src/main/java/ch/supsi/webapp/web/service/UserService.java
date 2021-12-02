@@ -17,21 +17,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    //TODO USARE QUERY DEL DATABASE DIRETTAMENTE
-    public User getByName(String name){
-        switch (name){
-            case "AUTH_Antonio":
-                return userRepository.getById(10);
-            case "ADM_Max":
-                return userRepository.getById(11);
-            case "USR_Diego":
-                return userRepository.getById(12);
-            case "EDIT_Matteo":
-                return userRepository.getById(13);
-            default:
-                return userRepository.getById(10);
-        }
+    public void flushUser(User user){
+        userRepository.saveAndFlush(user);
     }
+
 
     public User findUserByUsername(String username){
         return userRepository.findByUsername(username);

@@ -35,7 +35,7 @@ public class WebApplication {
 			if(roleRepository.count() == 0){
 				roleRepository.saveAndFlush(new Role("ROLE_AUTHOR"));
 				roleRepository.saveAndFlush(new Role("ROLE_ADMIN"));
-				roleRepository.saveAndFlush(new Role("ROLE_TONIO"));
+				roleRepository.saveAndFlush(new Role("ROLE_USER"));
 				roleRepository.saveAndFlush(new Role("ROLE_WATCHER"));
 			}
 

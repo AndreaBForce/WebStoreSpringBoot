@@ -2,6 +2,7 @@
 <html lang="it">
 
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -39,9 +40,9 @@
                                         <input type="text" name="id" th:value="${item.id}" id="idric" hidden>
                                         <input type="submit" value="Mostra" class="btn btn-outline-primary btn-sm"/>
                                         </form>
-                                    <form method="post" action="bItemDetails.html">
+                                    <form method="post" th:action="@{/edita}">
                                         <input type="text" name="id" th:value="${item.id}" id="idsocio" hidden>
-                                        <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm"/>
+                                        <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm" sec:authorize="isAuthenticated()"/>
                                     </form>
                                 </div>
                             </div>
@@ -68,7 +69,10 @@
                                 <input type="text" name="id" th:value="${item.id}" id="idof" hidden>
                                 <input type="submit" value="Mostra" class="btn btn-outline-primary btn-sm"/>
                             </form>
-
+                            <form method="post" th:action="@{/edita}">
+                                <input type="text" name="id" th:value="${item.id}" id="idof2" hidden>
+                                <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm"/>
+                            </form>
                         </div>
                     </div>
                     <br>

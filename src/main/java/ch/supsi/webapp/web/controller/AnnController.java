@@ -1,5 +1,6 @@
 package ch.supsi.webapp.web.controller;
 
+import ch.supsi.webapp.web.model.User;
 import ch.supsi.webapp.web.service.CategoryService;
 import ch.supsi.webapp.web.service.ItemService;
 import ch.supsi.webapp.web.service.RoleService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +47,29 @@ public class AnnController {
     public String login() {
         return "bLoginPage.html";
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String getRegister() {
+        return "bRegisterPage.html";
+    }
+
+
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String postRegister(@RequestParam("name") String name,
+                               @RequestParam("surname") String surname,
+                               @RequestParam("username") String username,
+                               @RequestParam("password") String password,
+                               Model model) {
+
+
+        //TODO IF USER ALREADY EXIST DESTROY
+        User user = new User(username,name,surname,roleService.findById(8),new BCryptPasswordEncoder().encode(password));
+        userService.flushUser(user);
+
+        return "redirect:/";
+    }
+
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
     public String getItem(Model model, @PathVariable int id) {
@@ -104,9 +129,9 @@ public class AnnController {
         Date date1= new Date();
         Item item = null;
         if(itemService.getItemById(id).isPresent() && itemService.getItemById(id).get().getImage() != null){
-             item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,id,itemService.getItemById(id).get().getImage());
+             item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,id,itemService.getItemById(id).get().getImage());
         }else{
-             item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,id);
+             item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,id);
         }
 
         itemService.modifyById(id,item);
@@ -122,6 +147,11 @@ public class AnnController {
             itemService.deleteById(id);
         }
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(@RequestParam("id") String id,Model model) {
+        return deleteEditItem(Integer.valueOf(id),model);
     }
 
     @RequestMapping(value = "/bItemDetails.html", method = RequestMethod.GET)
@@ -171,12 +201,12 @@ public class AnnController {
         //TODO Refactor
         if(!file.isEmpty()){
             try {
-                item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,ID,file.getBytes());
+                item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,ID,file.getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }else{
-            item = new Item(title,description,userService.getByName(author), categoryService.getByName(categoria),date1,annuncio,ID);
+            item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,ID);
         }
 
         itemService.insertInDb(item);
