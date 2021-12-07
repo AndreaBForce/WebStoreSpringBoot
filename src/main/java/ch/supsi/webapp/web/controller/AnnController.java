@@ -56,12 +56,11 @@ public class AnnController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String postRegister(@RequestParam("name") String name,
+    public String postRegister(@RequestParam("nome") String name,
                                @RequestParam("surname") String surname,
                                @RequestParam("username") String username,
                                @RequestParam("password") String password,
                                Model model) {
-
 
         //TODO IF USER ALREADY EXIST DESTROY
         User user = new User(username,name,surname,roleService.findById(8),new BCryptPasswordEncoder().encode(password));
