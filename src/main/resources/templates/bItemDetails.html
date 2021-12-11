@@ -52,17 +52,17 @@
 
     <div class="mb-3">
         <label for="category" class="form-label">Categoria:</label>
-        <input type="email" class="form-control" id="category" th:value="${oggetto?.category?.getCategory()}" readonly>
+        <input type="text" class="form-control" id="category" th:value="${oggetto?.category?.getCategory()}" readonly>
     </div>
 
     <div class="mb-3">
         <label for="tipologia" class="form-label">Tipologia:</label>
-        <input type="email" class="form-control" id="tipologia" th:value="${oggetto?.annuncio}" readonly>
+        <input type="text" class="form-control" id="tipologia" th:value="${oggetto?.annuncio}" readonly>
     </div>
 
     <div class="mb-3">
         <label for="data" class="form-label">Data di creazione:</label>
-        <input type="email" class="form-control" id="data" th:value="${oggetto?.date?.toString()}" readonly>
+        <input type="text" class="form-control" id="data" th:value="${oggetto?.date?.toString()}" readonly>
     </div>
 
 

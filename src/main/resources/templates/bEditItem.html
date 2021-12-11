@@ -21,15 +21,13 @@
 
             <label for="fauthor">Autore:</label>
             <br>
-            <select name="author" id="fauthor" class="form-select" aria-label="Default select example" required>
-                <option th:value="${oggetto?.author?.getUsername()}" th:text="${oggetto?.author?.getUsername()}"></option>op
-            </select>
+            <input  name="author" type="text" class="form-control" id="fauthor" placeholder="Autoore" th:value="${oggetto?.author?.getUsername()}" th:text="${oggetto?.author?.getUsername()}" readonly>
             <br>
 
             <label for="fcategoria">Categoria:</label>
             <br>
-            <select name="category" id="fcategoria" class="form-select" aria-label="Default select example" required>
-                <option th:each="categoria : ${categorie}" th:value="${oggetto?.category?.category}" th:text="${oggetto?.category?.category}"></option>
+            <select name="category" id="fcategoria" class="form-select" aria-label="Default select example" required th:selected="${oggetto?.category?.category}">
+                <option th:each="categoria : ${categorie}" th:value="${categoria.category}" th:text="${categoria.category}"></option>
             </select>
 
             <br>

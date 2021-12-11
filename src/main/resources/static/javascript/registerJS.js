@@ -76,7 +76,7 @@ function validUsername(event) {
 function validPassword(event) {
     const password=document.getElementById("password");
 
-    if(/^[A-Za-z0-9_]+$/.test(password.value)){
+    if(/^[A-Za-z0-9_]+$/.test(password.value) && password.value.length>=8 && password.value.length<=15){
         password.classList.add("is-valid");
         password.classList.remove("is-invalid");
         flagP = true;
@@ -94,16 +94,22 @@ function validPasswordConfirm(event) {
     const password=document.getElementById("password");
     const passwordconf=document.getElementById("passwordconfirm");
 
-    if(passwordconf.value == password.value){
+    if(passwordconf.value == password.value && password.value.length>=8 && password.value.length<=15){
         password.classList.add("is-valid");
         password.classList.remove("is-invalid");
+
+        passwordconf.classList.add("is-valid");
+        passwordconf.classList.remove("is-invalid");
         flagC = true;
         checkFlags(event);
     }else{
         password.classList.add("is-invalid");
         password.classList.remove("is-valid");
+
+        passwordconf.classList.add("is-invalid");
+        passwordconf.classList.remove("is-valid");
         alert("Password non corrispondono");
-        flagC = true;
+        flagC = false;
         checkFlags(event);
     }
 }
@@ -112,7 +118,9 @@ function checkFlags(event) {
 
     if(flagN && flagS && flagU && flagP && flagC) {
         document.getElementById("creabottone").disabled = false;
+        document.getElementById("creabottone").hidden = false;
     }else{
         document.getElementById("creabottone").disabled = true;
+        document.getElementById("creabottone").hidden = true;
     }
 }
