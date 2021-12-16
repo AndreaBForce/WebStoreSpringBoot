@@ -41,7 +41,7 @@ dataLetta.addEventListener('input', function (){
                 for (const element of elements ){
 
                     var inCode = '<div class="card" style="width: 10rem;">\n' +
-                        '                                <img src="item/image/'+element.id+'" class="card-img-top" alt="...">\n' +
+                        '                                <img src="'+context+'item/image/'+element.id+'" class="card-img-top" alt="...">\n' +
                         '                                <div class="card-body">\n' +
                         '                                    <h5 class="card-title">'+element.title+'</h5>\n' +
                         '                                    <p class="card-text">'+element.description+'</p>\n' +
@@ -103,7 +103,7 @@ dataLetta.addEventListener('keypress', function (){
                     for (const element of elements) {
 
                         var inCode = '<div class="card" style="width: 10rem;">\n' +
-                            '                                <img src="item/image/' + element.id + '" class="card-img-top" alt="...">\n' +
+                            '                                <img src="'+context+'item/image/' + element.id + '" class="card-img-top" alt="...">\n' +
                             '                                <div class="card-body">\n' +
                             '                                    <h5 class="card-title">' + element.title + '</h5>\n' +
                             '                                    <p class="card-text">' + element.description + '</p>\n' +
