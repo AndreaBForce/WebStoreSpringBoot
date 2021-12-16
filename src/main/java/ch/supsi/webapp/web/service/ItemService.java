@@ -6,6 +6,7 @@ import ch.supsi.webapp.web.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +53,21 @@ public class ItemService {
     //ritorna la len della repository
     public long getLen(){
         return repository.count();
+    }
+
+    public List<Item> searchKeywordInNameAndDesc(String keyword){
+        List<Item> items = repository.findAll();
+        List<Item> ritorni = new ArrayList<>();
+
+        if(items.isEmpty()){
+            return null;
+        }else{
+            for (Item i:items) {
+                if(i.getDescription().contains(keyword) || i.getTitle().contains(keyword) || i.getCategory().getCategory().contains(keyword)){
+                    ritorni.add(i);
+                }
+            }
+        }
+        return ritorni;
     }
 }

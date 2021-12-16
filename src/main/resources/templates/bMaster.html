@@ -35,17 +35,32 @@
             <label>Benvenuto: </label>
             <label th:text="${#authentication.name}"></label>
             <div class="row">
-                <div class="col-6 col-md-4">
+
+                <form th:action="@{/item/search}" method="get">
+                <div class="col-6 col-md-8">
+                    <div class="input-group">
+                        <div class="form-outline">
+                            <input type="search" id="q" name="q" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-2" hidden>
+                    <input type="submit" class="btn btn-outline-primary me-2" id="search" value="Search" hidden disabled></input>
+                </div>
+
+                </form>
+                <div class="col-6 col-md-3">
                     <form th:action="@{/login}" method="get">
                         <input type="submit" class="btn btn-outline-primary me-2" value="Login" sec:authorize="isAnonymous()"></input>
                     </form>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-md-3">
                     <form th:action="@{/register}" method="get">
                     <input value="Sign up" type="submit" class="btn btn-primary" sec:authorize="isAnonymous()"></input>
                     </form>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-md-3">
                     <form th:action="@{/logout}" method="get">
                     <input type="submit" class="btn btn-outline-primary me-2" value="Logout" sec:authorize="isAuthenticated()"></input>
                     </form>
@@ -59,6 +74,7 @@
     <div class="container">
         <span class="text-muted"><small> Copyleft CC-by 2021 by "Andrea Riccardi"</small></span>
     </div>
+    <script type="text/javascript" th:src="@{/javascript/search.js}"></script>
 </footer>
 
 </body>

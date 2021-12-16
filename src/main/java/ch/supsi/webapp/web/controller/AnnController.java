@@ -6,6 +6,9 @@ import ch.supsi.webapp.web.service.ItemService;
 import ch.supsi.webapp.web.service.RoleService;
 import ch.supsi.webapp.web.service.UserService;
 import ch.supsi.webapp.web.model.Item;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import nonapi.io.github.classgraph.json.JSONDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class AnnController {
@@ -241,5 +245,35 @@ public class AnnController {
         }
         return "redirect:/";
     }
+
+
+    //SEARCH
+    @RequestMapping(value = "/item/search", method = RequestMethod.GET)
+    @ResponseBody
+    public String getSearch(Model model,
+                            @RequestParam("q") String q) {
+        ObjectMapper mapper = new ObjectMapper();
+        model.addAttribute("utenti",userService.getAllUsers());
+        model.addAttribute("categorie",categoryService.getAllCategory());
+
+        List<Item> items = itemService.searchKeywordInNameAndDesc(q);
+
+        if(!items.isEmpty()){
+            for (Item i: items) {
+                i.setImage(null);
+            }
+        }
+
+        String json = "";
+
+        try {
+            json = mapper.writeValueAsString(items);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
 
 }

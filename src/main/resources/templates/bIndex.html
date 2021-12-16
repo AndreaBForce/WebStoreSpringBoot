@@ -19,7 +19,7 @@
     <div class="container">
 
         <div class="row">
-            <div class="col">
+            <div class="col" id="richiesta">
                 <h3>Richiesta</h3>
                 <hr>
 
@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div class="col">
+            <div class="col" id="offerta">
                 <h3>Offerta</h3>
                 <hr>
                 <div class="col" th:each="item : ${offerta}">
@@ -74,6 +74,13 @@
                 </div>
 
             </div>
+
+            <div class="col" id="risultato">
+                <base href="/riccardi" >
+                <h3>Result</h3>
+                <div id="resultDiv" class="resultDiv"></div>
+            </div>
+
 
             <div class="col col-lg-2">
                 <aside class="aside">
