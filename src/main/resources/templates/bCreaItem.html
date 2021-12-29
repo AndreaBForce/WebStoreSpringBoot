@@ -8,6 +8,7 @@
     <meta name="author" content="Andrea Riccardi">
     <title>Crea Item Menu</title>
     <link th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/baseStyle.css}" rel="stylesheet">
 <body>
 
 <div th:replace="bMaster :: headerCopia"></div>
@@ -51,13 +52,15 @@
             <br><br>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Titolo:</label>
-                <input  name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Titolo articolo" required>
+                <input  name="title" type="text" class="form-control" id="exampleFormControlInput1" aria-describedby="title-tip" placeholder="Titolo articolo" required>
+                <div role="tooltip" id="title-tip">Inserisci qui il titolo dell'articolo</div>
             </div>
 
             <br>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Descrizione:</label>
-                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" aria-describedby="desc-tip" required></textarea>
+                <div role="tooltip" id="desc-tip">Inserisci qui la decrizione dell'articolo</div>
             </div>
 
             <br>

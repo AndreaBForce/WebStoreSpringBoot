@@ -50,7 +50,7 @@ dataLetta.addEventListener('input', function (){
                         '                                        <input type="text" name="id" value="'+element.id+'" id="idric" hidden>\n' +
                         '                                        <input type="submit" value="Mostra" class="btn btn-outline-primary btn-sm"/>\n' +
                         '                                        </form>\n' +
-                        '                                    <form method="post" action="/edita">\n' +
+                        '                                    <form method="post" action="'+context+'edita">\n' +
                         '                                        <input type="text" name="id" value="'+element.id+'" id="idsocio" hidden>\n' +
                         '                                        <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm" sec:authorize="isAuthenticated()"/>\n' +
                         '                                    </form>\n' +
@@ -112,7 +112,7 @@ dataLetta.addEventListener('keypress', function (){
                             '                                        <input type="text" name="id" value="' + element.id + '" id="idric" hidden>\n' +
                             '                                        <input type="submit" value="Mostra" class="btn btn-outline-primary btn-sm"/>\n' +
                             '                                        </form>\n' +
-                            '                                    <form method="post" action="/edita">\n' +
+                            '                                    <form method="post" action='+context+'edita">\n' +
                             '                                        <input type="text" name="id" value="' + element.id + '" id="idsocio" hidden>\n' +
                             '                                        <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm" sec:authorize="isAuthenticated()"/>\n' +
                             '                                    </form>\n' +

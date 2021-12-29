@@ -12,15 +12,15 @@
 </head>
 <body>
 
-<div class="container" th:fragment="headerCopia">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+<div class="container" th:fragment="headerCopia" role="navbar">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom" role="header">
         <a class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
             <img th:src="@{/images/logo.jpg}" alt="Andrea Riccardi Logo" height="60" width="60">
             <h3>&nbsp;</h3>
             <h3>Annunci Riccardi</h3>
         </a>
 
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" role="menubar">
             <li><a th:href="@{/bIndex.html}" class="nav-link px-2 link-secondary">Home</a></li>
             <li><a th:href="@{/bCreaItem.html}" class="nav-link px-2 link-dark" sec:authorize="isAuthenticated()">Crea Item</a></li>
             <li><a th:href="@{/bItemDetails.html}" class="nav-link px-2 link-dark" sec:authorize="isAuthenticated()">Mostra Item</a></li>
@@ -31,7 +31,7 @@
         </ul>
 
         <!---TODO LOGIN BUTTONS PAGE-->
-        <div class="col-md-3 text-end">
+        <div class="col-md-3 text-end" role="authentication">
             <label>Benvenuto: </label>
             <label th:text="${#authentication.name}"></label>
             <div class="row">
@@ -40,7 +40,7 @@
                 <div class="col-6 col-md-8">
                     <div class="input-group">
                         <div class="form-outline">
-                            <input type="search" id="q" name="q" class="form-control" />
+                            <input type="search" id="q" name="q" class="form-control" role="search"/>
                         </div>
                     </div>
                 </div>
@@ -52,17 +52,17 @@
                 </form>
                 <div class="col-6 col-md-3">
                     <form th:action="@{/login}" method="get">
-                        <input type="submit" class="btn btn-outline-primary me-2" value="Login" sec:authorize="isAnonymous()"></input>
+                        <input type="submit" class="btn btn-outline-primary me-2" value="Login" sec:authorize="isAnonymous()" role="button"></input>
                     </form>
                 </div>
                 <div class="col-6 col-md-3">
                     <form th:action="@{/register}" method="get">
-                    <input value="Sign up" type="submit" class="btn btn-primary" sec:authorize="isAnonymous()"></input>
+                    <input value="Sign up" type="submit" class="btn btn-primary" sec:authorize="isAnonymous()" role="button"></input>
                     </form>
                 </div>
                 <div class="col-6 col-md-3">
                     <form th:action="@{/logout}" method="get">
-                    <input type="submit" class="btn btn-outline-primary me-2" value="Logout" sec:authorize="isAuthenticated()"></input>
+                    <input type="submit" class="btn btn-outline-primary me-2" value="Logout" sec:authorize="isAuthenticated()" role="button"></input>
                     </form>
                 </div>
             </div>

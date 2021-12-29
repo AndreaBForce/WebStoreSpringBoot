@@ -25,30 +25,36 @@
                         <div class="form-outline mb-4">
                             <input type="text" id="nome" class="form-control form-control-lg" name="nome" />
                             <label class="form-label" for="nome">Nome</label>
+                            <label class="form-label" id="name_er" for="nome" style="color:red" hidden>Nome non valido!<br>Caratteri consentiti nome A-Z/ a-z</label>
                             <p id="nomeerror"></p>
                         </div>
 
                         <div class="form-outline mb-4">
                             <input type="text" id="surname" class="form-control form-control-lg" name="surname" />
                             <label class="form-label" for="surname">Cognome</label>
+                            <label class="form-label" id="surname_er" for="cognome" style="color:red" hidden>Cognome non valido!<br>Caratteri consentiti A-Z/ a-z</label>
                             <p id="cognome"></p>
                         </div>
 
                         <div class="form-outline mb-4">
                             <input type="text" id="username" class="form-control form-control-lg" name="username" />
                             <label class="form-label" for="username">Username</label>
+                            <label class="form-label" id="usrn_er" for="username" style="color:red" hidden>Username non valido!<br>Caratteri consentiti A-Z/ a-z 0-9 _</label>
                             <p id="usernome"></p>
                         </div>
 
                         <div class="form-outline mb-4">
                             <input type="password" id="password" class="form-control form-control-lg" name="password"/>
                             <label class="form-label" for="password">Password</label>
+                            <label class="form-label" id="psw_er1" for="password" style="color:red" hidden>Password non valida! <br>Caratteri consentiti password A-Z/ a-z 0-9 _
+                                Lunghezza consentita 8-15 caratteri</label>
                             <p id="passw"></p>
                         </div>
 
                         <div class="form-outline mb-4">
                             <input type="password" id="passwordconfirm" class="form-control form-control-lg" name="cpassword"/>
                             <label class="form-label" for="passwordconfirm">Confirm password</label>
+                            <label class="form-label" id="psw_er2" for="password" style="color:red" hidden>Password non valida! <br> Le password non corrispondono</label>
                             <p id="confirmpassword"></p>
                         </div>
 

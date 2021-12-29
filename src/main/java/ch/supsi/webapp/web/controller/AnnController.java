@@ -250,12 +250,7 @@ public class AnnController {
     //SEARCH
     @RequestMapping(value = "/item/search", method = RequestMethod.GET)
     @ResponseBody
-    public String getSearch(Model model,
-                            @RequestParam("q") String q) {
-        ObjectMapper mapper = new ObjectMapper();
-        model.addAttribute("utenti",userService.getAllUsers());
-        model.addAttribute("categorie",categoryService.getAllCategory());
-
+    public List<Item> getSearch(@RequestParam("q") String q) {
         List<Item> items = itemService.searchKeywordInNameAndDesc(q);
 
         if(!items.isEmpty()){
@@ -263,16 +258,7 @@ public class AnnController {
                 i.setImage(null);
             }
         }
-
-        String json = "";
-
-        try {
-            json = mapper.writeValueAsString(items);
-
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return json;
+        return items;
     }
 
 

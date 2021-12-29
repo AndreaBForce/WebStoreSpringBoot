@@ -29,11 +29,12 @@ function validName(event) {
         name.classList.add("is-valid");
         name.classList.remove("is-invalid");
         flagN = true;
+        document.getElementById("name_er").hidden = true;
         checkFlags(event);
     }else{
         name.classList.add("is-invalid");
         name.classList.remove("is-valid");
-        alert("Caratteri consentiti nome A-Z/ a-z");
+        document.getElementById("name_er").hidden = false;
         flagN = false;
         checkFlags(event);
     }
@@ -46,11 +47,12 @@ function validSurname(event) {
         surname.classList.add("is-valid");
         surname.classList.remove("is-invalid");
         flagS = true;
+        document.getElementById("surname_er").hidden = true;
         checkFlags(event);
     }else{
         surname.classList.add("is-invalid");
         surname.classList.remove("is-valid");
-        alert("Caratteri consentiti cognome A-Z/ a-z");
+        document.getElementById("surname_er").hidden = false;
         flagS = false;
         checkFlags(event);
     }
@@ -63,11 +65,12 @@ function validUsername(event) {
         username.classList.add("is-valid");
         username.classList.remove("is-invalid");
         flagU = true;
+        document.getElementById("usrn_er").hidden = true;
         checkFlags(event);
     }else{
         username.classList.add("is-invalid");
         username.classList.remove("is-valid");
-        alert("Caratteri consentiti username A-Z/ a-z 0-9 _");
+        document.getElementById("usrn_er").hidden = false;
         flagU = false;
         checkFlags(event);
     }
@@ -80,11 +83,12 @@ function validPassword(event) {
         password.classList.add("is-valid");
         password.classList.remove("is-invalid");
         flagP = true;
+        document.getElementById("psw_er1").hidden = true;
         checkFlags(event);
     }else{
         password.classList.add("is-invalid");
         password.classList.remove("is-valid");
-        alert("Caratteri consentiti password A-Z/ a-z 0-9 _ \nLunghezza consentita 8-15 caratteri");
+        document.getElementById("psw_er1").hidden = false;
         flagP = false;
         checkFlags(event);
     }
@@ -100,6 +104,7 @@ function validPasswordConfirm(event) {
 
         passwordconf.classList.add("is-valid");
         passwordconf.classList.remove("is-invalid");
+        document.getElementById("psw_er2").hidden = true;
         flagC = true;
         checkFlags(event);
     }else{
@@ -108,7 +113,7 @@ function validPasswordConfirm(event) {
 
         passwordconf.classList.add("is-invalid");
         passwordconf.classList.remove("is-valid");
-        alert("Password non corrispondono");
+        document.getElementById("psw_er2").hidden = false;
         flagC = false;
         checkFlags(event);
     }

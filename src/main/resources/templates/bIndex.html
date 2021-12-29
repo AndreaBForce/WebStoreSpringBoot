@@ -16,10 +16,10 @@
 <div th:replace="bMaster :: headerCopia"></div>
 
 <main>
-    <div class="container">
+    <div class="container" role="menuitem">
 
         <div class="row">
-            <div class="col" id="richiesta">
+            <div class="col" id="richiesta" role="menuitemRequest">
                 <h3>Richiesta</h3>
                 <hr>
 
@@ -35,11 +35,11 @@
 
                                     <form method="post">
                                         <input type="text" name="id" th:value="${item.id}" id="idric" hidden>
-                                        <input type="submit" value="Mostra" class="btn btn-outline-primary btn-sm"/>
+                                        <input type="submit" value="Mostra" class="btn btn-outline-primary btn-sm" role="button"/>
                                         </form>
                                     <form method="post" th:action="@{/edita}">
                                         <input type="text" name="id" th:value="${item.id}" id="idsocio" hidden>
-                                        <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm" sec:authorize="isAuthenticated()"/>
+                                        <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm" sec:authorize="isAuthenticated()" role="button"/>
                                     </form>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div class="col" id="offerta">
+            <div class="col" id="offerta" role="menuitemOffer">
                 <h3>Offerta</h3>
                 <hr>
                 <div class="col" th:each="item : ${offerta}">
@@ -62,11 +62,11 @@
 
                             <form method="post">
                                 <input type="text" name="id" th:value="${item.id}" id="idof" hidden>
-                                <input type="submit" value="Mostra" class="btn btn-outline-primary btn-sm"/>
+                                <input type="submit" value="Mostra" class="btn btn-outline-primary btn-sm" role="button"/>
                             </form>
                             <form method="post" th:action="@{/edita}">
                                 <input type="text" name="id" th:value="${item.id}" id="idof2" hidden>
-                                <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm"/>
+                                <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm" role="button" sec:authorize="isAuthenticated()"/>
                             </form>
                         </div>
                     </div>
