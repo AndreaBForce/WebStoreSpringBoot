@@ -1,10 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
+
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Andrea Riccardi">
+    <title>Confronta</title>
+    <link th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" rel="stylesheet">
+
 </head>
 <body>
-$END$
+
+<div th:replace="bMaster :: headerCopia"></div>
+
+<main>
+
+    <div class="container" role="menuitem">
+        <h1>Confronta</h1>
+
+        <div class="container">
+
+            <div class="row">
+                <div class="row" th:each="categoria : ${categorie}">
+                    <h2 th:text="${categoria.category}"></h2>
+                    <br>
+
+                    <div class="col" th:each="item : ${preferiti}">
+                        <div th:if="${item.getCategory().getId() == categoria.id}">
+                            <img th:src="@{'item/image/' + ${item.id}}" class="card-img-top" alt="...">
+                            <table>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Dati</th>
+                                </tr>
+                                <tr>
+                                    <td>Titolo</td>
+                                    <td th:text="${item.title}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Descrizione</td>
+                                    <td th:text="${item.description}"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Prezzo</td>
+                                    <td th:text="${item.prezzo}"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Luogo</td>
+                                    <td th:text="${item.luogo}"></td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <br>
+                    </div>
+
+
+                </div>
+
+        </div>
+    </div>
+
+
+
+    </div>
+
+</main>
+
+
+<div th:replace="bMaster :: footerCopia"></div>
+
 </body>
 </html>

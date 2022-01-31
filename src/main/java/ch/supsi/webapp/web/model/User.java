@@ -1,6 +1,8 @@
 package ch.supsi.webapp.web.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -19,6 +21,9 @@ public class User {
     private int id;
 
     private String password;
+
+    @OneToMany(mappedBy = "utente")
+    List<Item> confrontabili = new ArrayList<>();
 
     public User() {
 
@@ -46,6 +51,7 @@ public class User {
         this.ruolo = ruolo;
         this.password = password;
     }
+
 
     public String getUsername() {
         return username;
@@ -93,6 +99,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Item> getConfrontabili() {
+        return confrontabili;
     }
 
     @Override

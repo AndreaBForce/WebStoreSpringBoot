@@ -34,6 +34,13 @@ public class Item {
     @GeneratedValue
     private int id;
 
+    private float prezzo;
+
+    private String luogo;
+
+    @ManyToOne
+    private User utente;
+
     public Item() {
     }
 
@@ -44,7 +51,7 @@ public class Item {
         this.category = category;
     }
 
-    public Item(String title, String description, User author, Category category, Date date, String annuncio, int id) {
+    public Item(String title, String description, User author, Category category, Date date, String annuncio, int id,float prezzo,String luogo) {
         this.title = title;
         this.description = description;
         this.author = author;
@@ -63,6 +70,43 @@ public class Item {
         this.annuncio = annuncio;
         this.id = id;
         this.image = image;
+    }
+
+    public Item(String title, String description, User author, Category category, Date date, String annuncio, int id,byte[] image,float prezzo,String luogo) {
+        this.title = title;
+        this.description = description;
+        this.author = author;
+        this.category = category;
+        this.date = date;
+        this.annuncio = annuncio;
+        this.id = id;
+        this.image = image;
+        this.prezzo = prezzo;
+        this.luogo = luogo;
+    }
+
+    public float getPrezzo() {
+        return prezzo;
+    }
+
+    public void setPrezzo(float prezzo) {
+        this.prezzo = prezzo;
+    }
+
+    public String getLuogo() {
+        return luogo;
+    }
+
+    public void setLuogo(String luogo) {
+        this.luogo = luogo;
+    }
+
+    public User getUtente() {
+        return utente;
+    }
+
+    public void setUtente(User utente) {
+        this.utente = utente;
     }
 
     public Date getDate() {

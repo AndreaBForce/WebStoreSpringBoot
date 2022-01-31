@@ -141,7 +141,8 @@ public class AnnController {
         if(itemService.getItemById(id).isPresent() && itemService.getItemById(id).get().getImage() != null){
              item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,id,itemService.getItemById(id).get().getImage());
         }else{
-             item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,id);
+            //TODO FIXARE QUA L'EDIT
+             //item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,id);
         }
 
         itemService.modifyById(id,item);
@@ -207,6 +208,8 @@ public class AnnController {
                            @RequestParam("category") String categoria,
                            @RequestParam("annuncio") String annuncio,
                            @RequestParam("description") String description,
+                           @RequestParam("prezzo") String prezzo,
+                           @RequestParam("luogo") String luogo,
                            @RequestParam("image") MultipartFile file,
                             Model model) {
         int ID = (int) itemService.getLen();
@@ -217,12 +220,12 @@ public class AnnController {
         //TODO Refactor
         if(!file.isEmpty()){
             try {
-                item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,ID,file.getBytes());
+                item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,ID,file.getBytes(),Float.valueOf(prezzo),luogo);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }else{
-            item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,ID);
+            item = new Item(title,description,userService.findUserByUsername(author), categoryService.getByName(categoria),date1,annuncio,ID,Float.valueOf(prezzo),luogo);
         }
 
         itemService.insertInDb(item);
@@ -275,4 +278,43 @@ public class AnnController {
         }
         return items;
     }
+
+
+    @RequestMapping(value = "/bConfronta.html", method = RequestMethod.GET)
+    public String getConfronta(Model model) {
+
+        //TODO PASSARE I COSI DELL'UTENTE
+        model.addAttribute("preferiti", userService.findAllPreferiti("admin"));
+        model.addAttribute("categorie", categoryService.getAllCategory());
+
+        return "bConfronta";
+    }
+
+    //EX1
+    //Aggiunge il confronta
+    @RequestMapping(value = "/addpreferito", method = RequestMethod.POST)
+    public String addPreferito(@RequestParam("ids") String id,
+                               @RequestParam("usr") String username) {
+        userService.findUserByUsername(username).getConfrontabili().add(itemService.getItemById(Integer.valueOf(id)).get());
+
+        itemService.getItemById(Integer.valueOf(id)).get().setUtente(userService.findUserByUsername(username));
+
+        itemService.insertInDb(itemService.getItemById(Integer.valueOf(id)).get());
+        userService.flushUser(userService.findUserByUsername(username));
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/item/confronta", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Item> getConfronta(@RequestParam("usr") String username) {
+        List<Item> items = userService.findAllPreferiti(username);
+        if(!items.isEmpty()){
+            for (Item i: items) {
+                i.setImage(null);
+            }
+        }
+        return items;
+    }
 }
+
+

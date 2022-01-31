@@ -45,6 +45,18 @@
         <input type="text" class="form-control" id="exampleFormControlTextarea1" rows="3" th:value="${oggetto?.description}" readonly>
     </div>
 
+    <br>
+    <div class="mb-3">
+        <label for="exampleFormControlInput2" class="form-label">Prezzo:</label>
+        <input type="text" class="form-control" id="exampleFormControlInput2" th:value="${oggetto?.prezzo}" readonly>
+    </div>
+
+    <br>
+    <div class="mb-3">
+        <label for="exampleFormControlInput3" class="form-label">Luogo:</label>
+        <input type="text" class="form-control" id="exampleFormControlInput3" th:value="${oggetto?.luogo}" readonly>
+    </div>
+
     <div class="mb-3">
         <label for="idItem" class="form-label">Id Item:</label>
         <input type="text" class="form-control" th:value="${oggetto?.id}" id="idItem" readonly>
@@ -64,6 +76,12 @@
         <label for="data" class="form-label">Data di creazione:</label>
         <input type="text" class="form-control" id="data" th:value="${oggetto?.date?.toString()}" readonly>
     </div>
+
+    <form method="post" th:action="@{/addpreferito}">
+        <input th:value="${oggetto?.id}" type="text" class="form-control" name="ids" id="ids" hidden>
+        <input th:value="${oggetto?.author?.getUsername()}" type="text" class="form-control" name="usr" id="usr" hidden>
+        <input id="add_conf" type="submit" value="Aggiungi confronta" class="btn btn-primary btn-lg" />
+    </form>
 
 
 </div>

@@ -1,5 +1,6 @@
 package ch.supsi.webapp.web.service;
 
+import ch.supsi.webapp.web.model.Item;
 import ch.supsi.webapp.web.model.User;
 import ch.supsi.webapp.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,9 @@ public class UserService {
             utente = userRepository.getById(7);
             return utente;
         }
+    }
+
+    public List<Item> findAllPreferiti(String username){
+        return findUserByUsername(username).getConfrontabili();
     }
 }
