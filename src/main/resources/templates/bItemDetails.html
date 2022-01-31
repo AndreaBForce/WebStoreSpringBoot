@@ -77,7 +77,7 @@
         <input type="text" class="form-control" id="data" th:value="${oggetto?.date?.toString()}" readonly>
     </div>
 
-    <form method="post" th:action="@{/addconfronta}">
+    <form method="post" th:action="@{/addconfronta}" th:if="${oggetto.annuncio == 'offerta'}">
         <input th:value="${oggetto?.id}" type="text" class="form-control" name="ids" id="ids" hidden>
         <input th:value="${oggetto?.author?.getUsername()}" type="text" class="form-control" name="usr" id="usr" hidden>
         <input id="add_conf" type="submit" value="Aggiungi confronta" class="btn btn-primary btn-lg" />
