@@ -1,10 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
+
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Andrea Riccardi">
+    <title>Annunci Riccardi</title>
+    <link th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" rel="stylesheet">
+
 </head>
 <body>
-$END$
+
+<div th:replace="bMaster :: headerCopia"></div>
+
+<main>
+    <div class="container" role="menuitem">
+
+        <div class="row">
+            <div class="col" id="richiesta" role="menuitemRequest">
+                <h3>Richiesta</h3>
+                <hr>
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col" th:each="item : ${richiesta}">
+                            <div class="card" style="width: 10rem;">
+                                <img th:src="@{'item/image/' + ${item.id}}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${item.title}"></h5>
+                                    <p class="card-text" th:text="${item.description}"></p>
+
+                                    <form method="post">
+                                        <input type="text" name="id" th:value="${item.id}" id="idric" hidden>
+                                        <input type="submit" value="Mostra" class="btn btn-outline-primary btn-sm" role="button"/>
+                                    </form>
+                                    <form method="post" th:action="@{/edita}">
+                                        <input type="text" name="id" th:value="${item.id}" id="idsocio" hidden>
+                                        <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm" sec:authorize="isAuthenticated()" role="button"/>
+                                    </form>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col" id="offerta" role="menuitemOffer">
+                <h3>Offerta</h3>
+                <hr>
+                <div class="col" th:each="item : ${offerta}">
+                    <div class="card" style="width: 10rem;">
+                        <img th:src="@{'item/image/' + ${item.id}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${item.title}"></h5>
+                            <p class="card-text" th:text="${item.description}"></p>
+
+                            <form method="post">
+                                <input type="text" name="id" th:value="${item.id}" id="idof" hidden>
+                                <input type="submit" value="Mostra" class="btn btn-outline-primary btn-sm" role="button"/>
+                            </form>
+                            <form method="post" th:action="@{/edita}">
+                                <input type="text" name="id" th:value="${item.id}" id="idof2" hidden>
+                                <input type="submit" value="Edit" class="btn btn-outline-primary btn-sm" role="button" sec:authorize="isAuthenticated()"/>
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+
+            </div>
+
+            <div class="col" id="risultato">
+                <base href="/riccardi" >
+                <h3>Result</h3>
+                <div id="resultDiv" class="resultDiv"></div>
+            </div>
+
+
+            <div class="col col-lg-2">
+                <aside class="aside">
+                    <h1>NEWS</h1>
+                    <div>Bacon ipsum dolor amet jerky t-bone jowl venison alcatra ball tip kevin landjaeger chislic.
+                        Beef ribs turkey ribeye picanha fatback tail tri-tip chicken. Shoulder strip steak picanha beef
+                        ribs, salami turducken jowl buffalo t-bone alcatra porchetta chislic. Swine ball tip pancetta
+                        turkey frankfurter. Tail pork meatloaf picanha beef, drumstick turducken kevin chuck pastrami
+                        hamburger tri-tip venison. Kielbasa kevin jerky tail chislic tri-tip beef ribs picanha alcatra
+                        t-bone filet mignon beef doner.
+
+                        Buffalo shank pork chop kielbasa, shoulder sirloin porchetta hamburger frankfurter sausage kevin
+                        capicola prosciutto shankle beef ribs. Shankle pastrami alcatra kevin t-bone tri-tip buffalo.
+                        Turkey t-bone sausage boudin tenderloin ham. Brisket chislic ground round alcatra, shank sirloin
+                        pancetta prosciutto chicken bacon meatball filet mignon. Beef swine ribeye frankfurter. Capicola
+                        bacon strip steak andouille cupim ball tip. Pork loin tongue alcatra short loin hamburger.
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <hr>
+</main>
+
+<div th:replace="bMaster :: footerCopia"></div>
+
 </body>
 </html>

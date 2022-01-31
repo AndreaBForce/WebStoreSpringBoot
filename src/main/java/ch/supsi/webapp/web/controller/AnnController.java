@@ -39,6 +39,7 @@ public class AnnController {
     @Autowired
     private CategoryService categoryService;
 
+    //Ritorna la index page
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getAll(Model model) {
         //TODO PRENDERE LA CATEGORIA E DIVIDERE IN OFFERTA E DOMANDA
@@ -47,18 +48,19 @@ public class AnnController {
         return "bIndex";
     }
 
+    //Ritorna la login page
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "bLoginPage.html";
     }
 
+    //Ritorna la pagina di registrazione
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegister() {
         return "bRegisterPage.html";
     }
 
-
-
+    //Registra la persona e ritorna all'index
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String postRegister(@RequestParam("nome") String name,
                                @RequestParam("surname") String surname,
@@ -73,7 +75,7 @@ public class AnnController {
         return "redirect:/";
     }
 
-
+    //Ritorna un item richiesto nella pagina item details
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
     public String getItem(Model model, @PathVariable int id) {
         Item item;
@@ -87,6 +89,7 @@ public class AnnController {
         return "bItemDetails";
     }
 
+    //Ritorna la pagina di creazione item
     @RequestMapping(value = "/item/new", method = RequestMethod.GET)
     public String getNew(Model model) {
         model.addAttribute("utenti",userService.getAllUsers());
@@ -95,11 +98,13 @@ public class AnnController {
         return "bCreaItem";
     }
 
+    //Inserisce l'item nel db e ritorna l'index
     @RequestMapping(value = "/item/new", method = RequestMethod.POST)
     public String postNew(Model model) {
         return "redirect:/bIndex";
     }
 
+    //Ritorna la pagina di modifica dell'item richiesto
     @RequestMapping(value = "/bEditItem.html", method = RequestMethod.GET)
     public String getEditRed(Model model) {
         model.addAttribute("utenti",userService.getAllUsers());
@@ -107,6 +112,7 @@ public class AnnController {
         return "bEditItem";
     }
 
+    //Ritorna la pagina di modifica dell'item con l'item gia inserito
     @RequestMapping(value = "/item/{id}/edit", method = RequestMethod.GET)
     public String getEditItem(Model model, @PathVariable int id) {
         model.addAttribute("utenti",userService.getAllUsers());
@@ -121,6 +127,7 @@ public class AnnController {
         return "bEditItem";
     }
 
+    //Modifica l'item e lo inserisce nel db
     @RequestMapping(value = "/item/{id}/edit", method = RequestMethod.POST)
     public String postEditItem(@PathVariable int id,
                                @RequestParam("author") String author,
@@ -142,6 +149,7 @@ public class AnnController {
         return "redirect:/";
     }
 
+    //Delete dell'item
     @RequestMapping(value = "/item/{id}/delete", method = RequestMethod.GET)
     public String deleteEditItem(@PathVariable int id,Model model) {
 
@@ -152,22 +160,26 @@ public class AnnController {
         return "redirect:/";
     }
 
+    //Delete dell'item ma con la post ovvero chiamato dentro l'html
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@RequestParam("id") String id,Model model) {
         return deleteEditItem(Integer.valueOf(id),model);
     }
 
+    //Ritorna la pagina di item details
     @RequestMapping(value = "/bItemDetails.html", method = RequestMethod.GET)
     public String itemsDetail(Model model) {
         return "bItemDetails";
     }
 
+    //Ritorna la pagina di item details con l'id e i campi precompilati
     @RequestMapping(value = "/bItemDetails.html", method = RequestMethod.POST)
     public String POSTitemsDetail(@RequestParam("id") int id,
                                   Model model) {
         return getItem(model, id);
     }
 
+    //Post che ritorna l'index con solo un item
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String POSTIndexitemsDetail(@RequestParam("id") String id,
                                   Model model) {
@@ -175,19 +187,20 @@ public class AnnController {
     }
 
     //TODO QUA
+    //Edita di un singolo item mostrato nella home
     @RequestMapping(value = "/edita", method = RequestMethod.POST)
     public String POSTeditItemDetails(@RequestParam("id") String id,
                                        Model model) {
         return getEditItem(model, Integer.valueOf(id));
     }
 
+    //crea l'item
     @RequestMapping(value = "/bCreaItem.html", method = RequestMethod.GET)
     public String createItem(Model model) {
         return getNew(model);
     }
 
-
-
+    //aggiunge l'item nell'db
     @RequestMapping(value = "/bCreaItem.html", method = RequestMethod.POST)
     public String postItem(@RequestParam("author") String author,
                            @RequestParam("title") String title,
@@ -217,12 +230,14 @@ public class AnnController {
         return "redirect:/";
     }
 
+    //ritorna la home
     @RequestMapping(value = "/bIndex.html", method = RequestMethod.GET)
     public String home(Model model) {
         return "redirect:/";
     }
 
 
+    //ritorna la immagine e permette di mostrarla
     @GetMapping(value = "/item/image/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] showProductImage(@PathVariable int id){
@@ -237,6 +252,7 @@ public class AnnController {
         return null;
     }
 
+    //termina la sessione e effettua il logout
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -252,7 +268,6 @@ public class AnnController {
     @ResponseBody
     public List<Item> getSearch(@RequestParam("q") String q) {
         List<Item> items = itemService.searchKeywordInNameAndDesc(q);
-
         if(!items.isEmpty()){
             for (Item i: items) {
                 i.setImage(null);
@@ -260,6 +275,4 @@ public class AnnController {
         }
         return items;
     }
-
-
 }
