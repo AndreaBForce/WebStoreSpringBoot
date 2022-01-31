@@ -23,11 +23,11 @@
         <div class="container">
 
             <div class="row">
-                <div class="row" th:each="categoria : ${categorie}">
+                <div class="row" th:each="categoria : ${cat}">
                     <h2 th:text="${categoria.category}"></h2>
                     <br>
 
-                    <div class="col" th:each="item : ${preferiti}">
+                    <div class="col" th:each="item : ${pref}">
                         <div th:if="${item.getCategory().getId() == categoria.id}">
                             <img th:src="@{'item/image/' + ${item.id}}" class="card-img-top" alt="...">
                             <table>

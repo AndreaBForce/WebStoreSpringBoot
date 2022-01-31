@@ -280,20 +280,19 @@ public class AnnController {
     }
 
 
-    @RequestMapping(value = "/bConfronta.html", method = RequestMethod.GET)
-    public String getConfronta(Model model) {
+    @RequestMapping(value = "/bConfronta.html/{username}", method = RequestMethod.GET)
+    public String getConfronta(@PathVariable String username,Model model) {
 
-        //TODO PASSARE I COSI DELL'UTENTE
-        model.addAttribute("preferiti", userService.findAllPreferiti("admin"));
-        model.addAttribute("categorie", categoryService.getAllCategory());
+        model.addAttribute("pref", userService.findAllConfronta(username));
+        model.addAttribute("cat", categoryService.getAllCategory());
 
         return "bConfronta";
     }
 
     //EX1
     //Aggiunge il confronta
-    @RequestMapping(value = "/addpreferito", method = RequestMethod.POST)
-    public String addPreferito(@RequestParam("ids") String id,
+    @RequestMapping(value = "/addconfronta", method = RequestMethod.POST)
+    public String addConfronta(@RequestParam("ids") String id,
                                @RequestParam("usr") String username) {
         userService.findUserByUsername(username).getConfrontabili().add(itemService.getItemById(Integer.valueOf(id)).get());
 
@@ -301,19 +300,39 @@ public class AnnController {
 
         itemService.insertInDb(itemService.getItemById(Integer.valueOf(id)).get());
         userService.flushUser(userService.findUserByUsername(username));
+
         return "redirect:/";
+
     }
+
 
     @RequestMapping(value = "/item/confronta", method = RequestMethod.GET)
     @ResponseBody
     public List<Item> getConfronta(@RequestParam("usr") String username) {
-        List<Item> items = userService.findAllPreferiti(username);
+        List<Item> items = userService.findAllConfronta(username);
         if(!items.isEmpty()){
             for (Item i: items) {
                 i.setImage(null);
             }
         }
         return items;
+    }
+
+    //Aggiunge il preferito
+    @RequestMapping(value = "/addpreferito", method = RequestMethod.POST)
+    public String addPreferito(@RequestParam("idpref") String id,
+                               @RequestParam("usr_pref") String username) {
+        userService.findUserByUsername(username).getPreferiti().add(itemService.getItemById(Integer.valueOf(id)).get());
+        itemService.getItemById(Integer.valueOf(id)).get().setUtenteprefe(userService.findUserByUsername(username));
+        itemService.insertInDb(itemService.getItemById(Integer.valueOf(id)).get());
+        userService.flushUser(userService.findUserByUsername(username));
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/bPreferiti.html/{username}", method = RequestMethod.GET)
+    public String getPreferiti(@PathVariable String username,Model model) {
+        model.addAttribute("preferiti", userService.findAllPreferiti(username));
+        return "bPreferiti";
     }
 }
 

@@ -24,9 +24,10 @@
             <li><a th:href="@{/bIndex.html}" class="nav-link px-2 link-secondary">Home</a></li>
             <li><a th:href="@{/bCreaItem.html}" class="nav-link px-2 link-dark" sec:authorize="isAuthenticated()">Crea Item</a></li>
             <li><a th:href="@{/bItemDetails.html}" class="nav-link px-2 link-dark" sec:authorize="isAuthenticated()">Mostra Item</a></li>
-            <li><a th:href="@{/bConfronta.html}" class="nav-link px-2 link-dark" id="confronta" sec:authorize="isAuthenticated()">Confronta</a></li>
-
+            <li><a th:href="@{'bConfronta.html/' + ${#authentication.name}}" class="nav-link px-2 link-dark" id="confronta" sec:authorize="isAuthenticated()">Confronta</a></li>
+            <li><a th:href="@{'bPreferiti.html/' + ${#authentication.name}}" class="nav-link px-2 link-dark" id="preferiti" sec:authorize="isAuthenticated()">Preferiti</a></li>
             <!---TODO ADD ABOUT PAGE-->
+
             <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
         </ul>
 

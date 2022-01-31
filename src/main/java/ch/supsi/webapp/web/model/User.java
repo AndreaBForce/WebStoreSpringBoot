@@ -25,6 +25,9 @@ public class User {
     @OneToMany(mappedBy = "utente")
     List<Item> confrontabili = new ArrayList<>();
 
+    @OneToMany(mappedBy = "utenteprefe")
+    List<Item> preferiti = new ArrayList<>();
+
     public User() {
 
     }
@@ -103,6 +106,10 @@ public class User {
 
     public List<Item> getConfrontabili() {
         return confrontabili;
+    }
+
+    public List<Item> getPreferiti() {
+        return preferiti;
     }
 
     @Override

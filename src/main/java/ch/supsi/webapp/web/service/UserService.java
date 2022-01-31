@@ -38,7 +38,11 @@ public class UserService {
         }
     }
 
-    public List<Item> findAllPreferiti(String username){
+    public List<Item> findAllConfronta(String username){
         return findUserByUsername(username).getConfrontabili();
+    }
+
+    public List<Item> findAllPreferiti(String username){
+        return findUserByUsername(username).getPreferiti();
     }
 }

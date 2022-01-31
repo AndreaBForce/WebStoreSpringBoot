@@ -41,6 +41,9 @@ public class Item {
     @ManyToOne
     private User utente;
 
+    @ManyToOne
+    private User utenteprefe;
+
     public Item() {
     }
 
@@ -107,6 +110,10 @@ public class Item {
 
     public void setUtente(User utente) {
         this.utente = utente;
+    }
+
+    public void setUtenteprefe(User utenteprefe) {
+        this.utenteprefe = utenteprefe;
     }
 
     public Date getDate() {

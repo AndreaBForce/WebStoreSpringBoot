@@ -77,10 +77,17 @@
         <input type="text" class="form-control" id="data" th:value="${oggetto?.date?.toString()}" readonly>
     </div>
 
-    <form method="post" th:action="@{/addpreferito}">
+    <form method="post" th:action="@{/addconfronta}">
         <input th:value="${oggetto?.id}" type="text" class="form-control" name="ids" id="ids" hidden>
         <input th:value="${oggetto?.author?.getUsername()}" type="text" class="form-control" name="usr" id="usr" hidden>
         <input id="add_conf" type="submit" value="Aggiungi confronta" class="btn btn-primary btn-lg" />
+    </form>
+
+    <br>
+    <form method="post" th:action="@{/addpreferito}">
+        <input th:value="${oggetto?.id}" type="text" class="form-control" name="idpref" id="idpref" hidden>
+        <input th:value="${oggetto?.author?.getUsername()}" type="text" class="form-control" name="usr_pref" id="usr_pref" hidden>
+        <input id="add_pref" type="submit" value="Aggiungi preferito" class="btn btn-primary btn-lg" />
     </form>
 
 
